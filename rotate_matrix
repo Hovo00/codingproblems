@@ -1,0 +1,94 @@
+#include <iostream>
+#include <iomanip>
+
+void printMatrix(int **p  ,const int n);
+
+void createMatrix(int **(&), const int n);
+
+void deleteMatrix(int **p, const int n);
+
+void fillMatrix(int **p, const int n);
+
+// function rotate matrix with 2 phases , first rotate rows , and second rotate semmetrical to additional diagonal
+
+void rotateMatrix(int **p, const int n);
+
+
+int main()
+
+{
+    int** p;
+    int n = 5;
+ 
+    createMatrix(p, n);
+    fillMatrix(p, n);
+    printMatrix(p, n);
+    rotateMatrix(p, n);
+    std::cout<<"\n\nRotated Matrix \n\n " ;
+    printMatrix(p, n);
+    deleteMatrix(p, n);
+}
+
+void rotateMatrix(int **p, const int n)
+{
+//first phase
+        int temp ;
+	for(int i = 0; i < n; ++i){
+
+	    for(int j=0; j < n / 2; ++j){
+		temp = p[i][j];
+		p[i][j] = p[i][n-j-1];
+		p[i][n-j-1] = temp;
+
+	    } 
+	}
+//second phase
+	for(int i = 0; i < n; ++i){
+	    for(int j=0; j < n - i - 1; ++j){
+		temp = p[i][j];
+		p[i][j] = p[n-j-1][n-i-1];
+		p[n-j-1][n-i-1] = temp;
+	    }
+	}
+}
+
+void createMatrix(int **(&p), const int n)
+{	
+    p = new int*[n];
+
+    for(int i = 0; i < n; ++i){
+	p[i] = new int[n];
+    }
+}
+
+void fillMatrix(int **p, const int n)
+
+{
+    int t = 1;
+    for(int i = 0; i < n; ++i){
+	for(int j = 0; j < n; ++j){
+	    p[i][j] = t++;
+
+	}
+    }
+
+}
+
+void printMatrix(int **p, const int n)
+{
+	for(int i = 0; i < n; ++i){
+	    for(int j = 0; j < n; ++j){
+		std::cout<<std::setw(4)<<p[i][j];
+	    }
+		std::cout<<std::endl;
+	}
+}
+
+void deleteMatrix(int **p, const int n)
+{
+     for(int i = 0; i < n ; ++i){
+	     delete [] p[i];
+     }
+     delete [] p;
+
+}
