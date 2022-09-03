@@ -43,7 +43,7 @@ void add_lists(ListNode* head1, ListNode* head2, ListNode*& head3) {
 	while (temp1 && temp2) {
 		temp->next = new ListNode();
 		m = temp1->data + temp2->data + remain;
-		temp->data = m > 9 ? m - 10 : m;
+		temp->next->data = m > 9 ? m - 10 : m;
 		remain = m > 9 ? 1 : 0;
 		temp = temp->next;
 		temp1 = temp1->next;
